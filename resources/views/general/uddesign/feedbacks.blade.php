@@ -12,6 +12,9 @@
         {{-- END OF BOOTSTRAP --}} {{-- FONT AWESOME --}}
         <link rel="stylesheet" href="{{url('fontawesome/css/all.min.css')}}" />
         {{-- END OF FONT AWESOME --}}
+        
+       
+        
     </head>
     <style>
         

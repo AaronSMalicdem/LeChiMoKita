@@ -279,9 +279,17 @@ class Kuwago_OneController extends Controller
     return view('general.kuwago-one.feedbacks', compact('feedback', 'averageRating', 'ratingCounts'));
 }
 
-public function kuwagoOnepromos()
+// public function kuwagoOnepromos()
+//     {
+//         $promos = Promo::all();
+//         return view('general.kuwago-one.promos', compact('promos'));
+//     }
+
+    public function kuwagoOnepromos(Request $request)
     {
-        $promos = Promo::all();
+        $sort = $request->get('sort', 'newest');
+        $promos = Promo::orderBy('created_at', $sort === 'newest' ? 'desc' : 'asc')->get();
+    
         return view('general.kuwago-one.promos', compact('promos'));
     }
 

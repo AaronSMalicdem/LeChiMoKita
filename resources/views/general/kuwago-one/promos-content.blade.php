@@ -12,7 +12,7 @@
         <div class="col-lg-9 kuwago1Promos">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 mt-2 mb-2">
+                    <div class="col-lg-6 mt-2 mb-2">
                         @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
@@ -91,9 +91,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <!-- Title Above the List -->
-                        <h3 class="mb-3" style="color: white;">Promo List</h3>
+                        <div class="row">
+                            <div class="col-lg-5 text-white text">
+                                <h2>Promo List</h2>
+                            </div>
+                            <div class="col-lg-4">
+                                <form action="{{ route('general.kuwago-one.promos') }}" method="GET">
+                                    <select name="sort" class="form-control createDeals" onchange="this.form.submit()">
+                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest to Oldest</option>
+                                        <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest to Newest</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="col-lg-3 d-flex justify-content-end">
+                                <a href="{{ route('promos.create') }}">
+                                    <i class="fa-solid fa-plus text-white text"></i>
+                                </a>
+                            </div>
+                        </div>
 
                         <!-- Promo List with Bullets, Transparent Background, White Text, No Borders, and Scrollable Area -->
                         <ul class="list-group" style="background-color: transparent; max-height: 400px; overflow-y: auto; list-style-type: disc; padding-left: 20px;">

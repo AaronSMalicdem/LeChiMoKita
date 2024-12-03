@@ -328,39 +328,35 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Update the average rating display
                 const averageRatingElement = document.getElementById('averageRating');
-                averageRatingElement.textContent = data.averageRating.toFixed(
-                    1); // Display with one decimal place
+                averageRatingElement.textContent = data.averageRating ? data.averageRating.toFixed(1) :
+                    'N/A';
 
-                // Update chart data
-                const chart = Chart.getChart('ratingChart'); // Assuming chart instance exists
-                chart.data.datasets[0].data = [
-                    data.ratingCounts[1],
-                    data.ratingCounts[2],
-                    data.ratingCounts[3],
-                    data.ratingCounts[4],
-                    data.ratingCounts[5]
-                ];
+                // Update chart data if available
+                const chart = Chart.getChart('ratingChart');
+                chart.data.datasets[0].data = data.ratingCounts || [0, 0, 0, 0, 0];
                 chart.update();
 
                 // Update feedback sections
-                updateSection('commentsList', data.comments);
-                updateSection('suggestionsList', data.suggestions);
-                updateSection('complaintsList', data.complaints);
+                updateSection('commentsList', data.comments || []);
+                updateSection('suggestionsList', data.suggestions || []);
+                updateSection('complaintsList', data.complaints || []);
 
                 // Update date range display
                 const dateRangeDisplay = document.getElementById('dateRangeDisplay');
-                dateRangeDisplay.textContent =
-                    `Filtered: ${formatDate(startDate)} to ${formatDate(endDate)}`;
+                dateRangeDisplay.textContent = data.comments.length || data.suggestions.length || data
+                    .complaints.length ?
+                    `Filtered: ${formatDate(startDate)} to ${formatDate(endDate)}` :
+                    'No feedback found for the selected date range.';
 
-                // Hide the modal using Bootstrap 5
+                // Hide the modal
                 const modalElement = document.getElementById('dateFilterModal');
                 const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
                 modal.hide();
             })
             .catch(error => console.error('Error:', error));
     });
+
 
     // Helper function to format the date as a readable string
     function formatDate(dateString) {

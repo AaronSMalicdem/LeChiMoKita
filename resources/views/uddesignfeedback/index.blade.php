@@ -424,7 +424,7 @@
             container.innerHTML += `
             <div class="row align-items-center">
                 <div class="col-lg-6"><b>${item.name} —</b></div>
-                <div class="col-lg-6">${item.dish}</div>
+                <div class="col-lg-6">${item.product_name}</div>
             </div>
             <div class="row">
                 <div class="col-lg-12">${getStars(item.rating)}</div>

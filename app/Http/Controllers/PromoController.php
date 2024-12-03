@@ -11,9 +11,10 @@ class PromoController extends Controller
     // Show all promos
     public function index()
     {
-        $promos = Promo::all();
+        $promos = Promo::orderBy('created_at', 'desc')->get();
         return view('general.kuwago-one.promos', compact('promos'));
     }
+    
 
 
     // Show form for creating a new promo

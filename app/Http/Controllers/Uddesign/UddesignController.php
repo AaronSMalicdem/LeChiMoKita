@@ -262,11 +262,20 @@ class UddesignController extends Controller
         }
     }
 
-    public function uddeals()
-    {
-        $deals = Deal::all();
-        return view('general.uddesign.uddeals', compact('deals'));
-    }
+    // public function uddeals()
+    // {
+    //     $deals = Deal::all();
+    //     return view('general.uddesign.uddeals', compact('deals'));
+    // }
+
+    public function uddeals(Request $request)
+{
+    $sort = $request->get('sort', 'newest');
+    $deals = Deal::orderBy('created_at', $sort === 'newest' ? 'desc' : 'asc')->get();
+
+    return view('general.uddesign.uddeals', compact('deals'));
+}
+
 
     public function showFeedbacks()
     {
